@@ -2,7 +2,6 @@
   "name": "@randajan/react-jetpack",
   "version": "1.0.0",
   "description": "@randajan/jetpack modification for react",
-  "author": "randajan",
   "license": "MIT",
   "repository": "randajan/react-jetpack",
   "main": "dist/index.js",
@@ -24,7 +23,11 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "^16.0.0",
+    "@randajan/jetpack": "^4.1.2"
+  },
+  "dependencies": {
+
   },
   "devDependencies": {
     "microbundle-crl": "^0.13.10",
@@ -48,6 +51,24 @@
     "react-scripts": "^3.4.1"
   },
   "files": [
-    "dist"
-  ]
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "jetpack",
+    "js",
+    "javascript",
+    "randajan",
+    "devtools",
+    "react"
+  ],
+  "homepage": "https://github.com/randajan/jetpack",
+  "bugs": {
+    "url": "https://github.com/randajan/jetpack/issues"
+  },
+  "author": {
+    "name": "Jan Randa",
+    "email": "jnranda@gmail.com",
+    "url": "https://www.linkedin.com/in/randajan/"
+  }
 }

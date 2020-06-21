@@ -1,10 +1,16 @@
 import React from 'react'
 
-import { ExampleComponent } from '@randajan/react-jetpack'
-import '@randajan/react-jetpack/dist/index.css'
+import jet, { usePromise } from '@randajan/react-jetpack';
 
-const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+window.jet = jet
+
+const App = (props) => {
+
+  return (
+  <div>
+    {jet.react.injectProps(<div className="fuck"/>, ({"data-flags":jet.react.writeFlags({failed:true, missed:_=>_}, true), id:"super", className:"ok"}), true, "div")}
+  </div>
+  )
 }
 
 export default App
