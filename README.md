@@ -101,7 +101,7 @@ _Wraping the *.css into the CSSFile instance_
   * _CSSFile_
 
 #### __CSSFile.get__
-_It will return flat array with unique classNames. It should be manually joined_
+_It will return flat array with unique classNames. Array is enhanced so it will automatically joined separated with spaces instead of commas_
 
 * Arguments
   * ...classNames: _object_ (support nested objects) 

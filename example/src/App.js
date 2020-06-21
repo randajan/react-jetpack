@@ -8,7 +8,7 @@ const App = (props) => {
 
   return (
   <div>
-    {jet.react.injectProps(<div className="fuck"/>, ({"data-flags":jet.react.writeFlags({failed:true, missed:_=>_}, true), id:"super", className:"ok"}), true, "div")}
+    {jet.react.injectProps(<div className="fuck"/>, ({"data-flags":jet.react.fetchFlags({failed:true, missed:_=>_}, true), id:"super", className:"ok"}), true, "div")}
   </div>
   )
 }

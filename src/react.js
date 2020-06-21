@@ -11,7 +11,14 @@ jet.react = {
             else { result.add(flag); }
         }, true);
 
-        return Array.from(result);
+        return jet.obj.addProperty(Array.from(result), {
+            toString:function() { return this.joins(" ") }
+        });
+
+    },
+
+    writeFlags:function(...args) {
+        return 
     },
 
     injectProps:function(children, injection, deep, filter) {

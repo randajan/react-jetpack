@@ -7,15 +7,17 @@ class CSSFile {
     }
 
     get(...classNames) {
-        const cns = new Set();
+        let result = new Set();
 
         jet.obj.map(classNames, v=>{
             const cn = jet.str.to(v);
-            cns.add(this.css.get(cn));
-            cns.add(jet.obj.get(this.file, cn));
+            result.add(this.css.get(cn));
+            result.add(jet.obj.get(this.file, cn));
         }, true);
 
-        return Array.from(cns);
+        return jet.obj.addProperty(Array.from(result), {
+            toString:function() { return this.joins(" ") }
+        });
     }
     
 }
