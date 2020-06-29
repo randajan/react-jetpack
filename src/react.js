@@ -1,3 +1,5 @@
+import React from "react";
+
 import jet from "@randajan/jetpack";
 
 jet.react = {
@@ -17,22 +19,16 @@ jet.react = {
 
     },
 
-    writeFlags:function(...args) {
-        return 
-    },
-
     injectProps:function(children, injection, deep, filter) {
         const level = jet.get("number", deep);
         filter = jet.arr.wrap(filter);
-        
-        return jet.to("array", children).map((ele, key)=>{
+        return React.Children.toArray(children).map((ele, key)=>{
 
             if (!jet.is("reactElement", ele)) { return ele; }
             const include = (jet.isEmpty(filter) || filter.includes(ele.type));
             const inject = jet.to("object", include ? injection : null, ele, key, level);
-            const children = deep ? jet.react.injectProps(ele.props.children, injection, level+1, filter) : null;
+            const children = deep ? jet.react.injectProps(inject.children || ele.props.children, injection, level+1, filter) : null;
             if (children) { inject.children = children; }
-
             return jet.isFull(inject) ? jet.copy(ele, inject) : ele;
         });
     },

@@ -7,10 +7,29 @@ window.jet = jet
 const App = (props) => {
 
   return (
-  <div>
-    {jet.react.injectProps(<div className="fuck"/>, ({"data-flags":jet.react.fetchFlags({failed:true, missed:_=>_}, true), id:"super", className:"ok"}), true, "div")}
-  </div>
+    <TestInject>
+      <ul>
+        <li/>
+        <li/>
+        <li/>
+        <li/>
+        <li/>
+        <li/>
+        <li/>
+        <li/>
+      </ul>
+    </TestInject>
   )
+}
+
+const TestInject = (props) => {
+
+  return jet.react.injectProps(
+    props.children, (ele, key, level)=>{
+      return {children:key+":"+level, id:"li-"+key+"-"+level}
+    },
+    true, "li"
+  );
 }
 
 export default App

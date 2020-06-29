@@ -7,10 +7,9 @@ jet.type.define(1, "reactComponent", _=> _ instanceof Component, (...args)=> new
 
 jet.to.define("reactElement", {
     array:_=>React.Children.toArray(_),
-
 })
 
-jet.type.define("reactComponent", {
+jet.to.define("reactComponent", {
     reactElement:_=>_.render()
 })
 
