@@ -7,7 +7,7 @@ import "./react";
 
 import { CSSLib, CSSFile } from "./CSS";
 
-import { useForceRender, usePromise } from "./Hooks";
+import { useForceRender, usePromise, useDrag, useShift, useSwipe } from "./Hooks";
 
 
 export default jet;
@@ -16,5 +16,8 @@ export {
   CSSLib,
   CSSFile,
   useForceRender,
-  usePromise
+  usePromise,
+  useDrag,
+  useShift,
+  useSwipe
 }
