@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 import jet, { usePromise, useShift, useDrag, useSwipe } from '@randajan/react-jetpack';
 
@@ -27,7 +27,9 @@ const App = (props) => {
 }
 
 const TestShift = props=>{
-  const [ref, shifting] = useSwipe(console.log, ["down"]);
+  const [val, setVal] = useState(.5);
+  window.setVal = setVal;
+  const [ref, shifting] = useShift(console.log, val, val);
   return <div ref={ref} className={shifting?"float":"static"} style={{width:"100px", height:"100px", top:"50%", left:"50%", "backgroundColor":"gray", position:"absolute", transform:"translate(-50%, -50%)"}}/>
 }
 

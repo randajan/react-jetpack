@@ -3,8 +3,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import jet from "@randajan/jetpack";
 
 function useForceRender() {
-  const [dull, setDull] = useState();
-  return useState(_=>_=>setDull(!dull))[0];
+  const rerender = useState()[1];
+  return useState(_=>_=>rerender({}))[0];
 }
 
 function usePromise(prom, deps) {
