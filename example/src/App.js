@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react'
 
-import jet, { usePromise, useShift, useDrag, useSwipe } from '@randajan/react-jetpack';
+import jet, { useEngage, useShift, useDrag, useSwipe } from '@randajan/react-jetpack';
 
 window.jet = jet
 
 const App = (props) => {
-  const eng = usePromise(new Promise(res=>setTimeout(res, 5000)));
+  const eng = useEngage(_=>new Promise(res=>setTimeout(res, 5000)));
   console.log(eng);
   return (
     <div className="App">

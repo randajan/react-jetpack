@@ -39,7 +39,7 @@ jet | React Element | props | div container | Provider
 CSSLib | class | defs | instance | Provide CSS module, where you can redefine classNames for whole project
 CSSFile | class | CSSLib, file | instance | Provide wrap of require(_file.css_). 
 useForceRender | Hook | - | function | Create function for rerendering. Instance of this function will stay same after rerender
-usePromise | Hook | Promise / async function, deps | { result, pending, error } | Will handle any promise for you. Second argument is same as in useEffect.
+useEngage | Hook | function, number | { result, pending, error } | Will handle any promise for you. Second argument is cachetime in ms.
 
 
 #### __jet.react.fetchFlags__

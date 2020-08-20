@@ -2,21 +2,38 @@ import React, { useRef, useState, useEffect } from 'react';
 
 import jet from "@randajan/jetpack";
 
+const PRIVATE = []
+
 function useForceRender() {
-  const rerender = useState()[1];
-  return useState(_=>_=>rerender({}))[0];
+  const render = useState()[1];
+
+  const id = useState(_=>PRIVATE.push({
+    mount:false,
+    rerender:_=>{ if (PRIVATE[id].mount) { render({}); } }
+  })-1)[0];
+  
+  useEffect(_=>{
+    PRIVATE[id].mount = true;
+    return _=>PRIVATE[id].mount = false;
+  }, []);
+  
+  return PRIVATE[id].rerender;
 }
 
-function usePromise(prom, deps) {
-  const [ eng, setEng ] = useState();
+function useEngage(set, cache) {
+  const toEng = (...a)=>jet.to("engage", jet.run(set, ...a));
+
   const rerender = useForceRender();
+  const [ eng, setEng ] = useState(toEng);
 
   useEffect(_=>{
-    setEng(prom = jet.to("engage", prom));
-    prom.then(rerender, rerender);
-  }, jet.arr.wrap(deps));
+    const { pending, end } = eng;
+    if (!pending && cache && cache < (new Date() - end)) { setEng(toEng()); }
+  });
 
-  return eng;
+  useEffect(_=>{ eng.finally(rerender); }, [eng]);
+
+  return [eng, (...a)=>setEng(toEng(...a))];
 }
 
 function useDrag(onMove) {
@@ -56,7 +73,7 @@ function useSwipe(onSwipe, allowDir, minDist, maxTime) {
 
 export {
   useForceRender,
-  usePromise,
+  useEngage,
   useDrag,
   useShift,
   useSwipe,
