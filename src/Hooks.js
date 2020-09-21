@@ -20,20 +20,27 @@ function useForceRender() {
   return PRIVATE[id].rerender;
 }
 
-function useEngage(set, cache) {
-  const toEng = (...a)=>jet.to("engage", jet.run(set, ...a));
+function useEngage(set, cache, ...deps) {
+  const toEng = (next, prev, ...a)=>{
+    const eng = jet.to("engage", jet.run(set, ...a));
+    if (!next || !next.pending) { return [eng, next]; }
+    next.cancel();
+    return [ eng, prev||next ];
+  };
 
   const rerender = useForceRender();
-  const [ eng, setEng ] = useState(toEng);
+  const [ [ next, prev ], setEng ] = useState(toEng);
+
+  useEffect(_=>{ setEng(toEng(next, prev)); }, deps);
 
   useEffect(_=>{
-    const { pending, end } = eng;
-    if (!pending && cache && cache < (new Date() - end)) { setEng(toEng()); }
+    const { pending, end } = next;
+    if (!pending && cache && cache < (new Date() - end)) { setEng(toEng(next, prev)); }
   });
 
-  useEffect(_=>{ eng.finally(rerender); }, [eng]);
+  useEffect(_=>{ next.finally(rerender); }, [next]);
 
-  return [eng, (...a)=>setEng(toEng(...a))];
+  return [next, prev, (...a)=>setEng(toEng(next, prev, ...a))];
 }
 
 function useDrag(onMove) {
