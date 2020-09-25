@@ -39,8 +39,11 @@ jet | React Element | props | div container | Provider
 CSSLib | class | defs | instance | Provide CSS module, where you can redefine classNames for whole project
 CSSFile | class | CSSLib, file | instance | Provide wrap of require(_file.css_). 
 useForceRender | Hook | - | function | Create function for rerendering. Instance of this function will stay same after rerender
-useEngage | Hook | function, number | { result, pending, error } | Will handle any promise for you. Second argument is cachetime in ms.
-
+useEngage | Hook | function, number | { result, pending, error } | Will handle any promise for you. Second argument is cachetime in ms
+useFocus | Hook | boolean, function, boolean | ref | Will handle the focus of ref. When focus has changed the function (second argument) will be called
+useDrag | Hook | function | [ref, move] | Will notice any attempt to drag and report it to function with details of event
+useShift | Hook | function, number, number, boolean | [ref, move] | Turn the ref into shiftable object. Now user can drag the element around. Provided function can validate moving by editing passed object. Two numbers are initial X and Y coordinates and last argument switch relative (% !default) and absolute (px) positioning.
+useSwipe | Hook | function, array, number, number | [ref] | Listen the swipe event. Arguments: callback on swipe, allowed direction, minimal distance, max time.
 
 #### __jet.react.fetchFlags__
 _It will transform the multidimensional object to fill the custom attribute "data-flags". If the iteration proces found true (boolean) it will append the key instead of the value. Any function will be called with provided arguments._

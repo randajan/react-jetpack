@@ -78,10 +78,32 @@ function useSwipe(onSwipe, allowDir, minDist, maxTime) {
   return [ref];
 }
 
+function useFocus(focus, setFocus, lock) {
+  const ref = useRef();
+
+  useEffect(_=>{
+    if (lock || !ref) { return; }
+
+    const handler = ev=>{
+        const target = ev.target;
+        const now = (ref.current && (ref.current === target || ref.current.contains(target)));
+        if (!focus !== !now) { setFocus(now); }
+    }
+
+    if (focus) { return jet.event.hear(document, "mouseup", handler); }
+    else if (ref.current) { return jet.event.hear(ref.current, "mouseup", handler); }
+
+
+  }, [focus, lock]);
+
+  return ref;
+}
+
 export {
   useForceRender,
   useEngage,
   useDrag,
   useShift,
   useSwipe,
+  useFocus
 };

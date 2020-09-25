@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 
-import jet, { useForceRender, useEngage, useShift, useDrag, useSwipe } from '@randajan/react-jetpack';
+import jet, { useForceRender, useEngage, useShift, useDrag, useSwipe, useFocus } from '@randajan/react-jetpack';
 
 window.jet = jet
 
@@ -9,6 +9,7 @@ const App = (props) => {
   return (
     <div className="App">
       <TestShift/>
+      <FocusMan/>
       <TestInject>
         <ul>
           <li/>
@@ -30,6 +31,15 @@ const TestShift = props=>{
   window.setVal = setVal;
   const [ref, shifting] = useShift(console.log, val, val);
   return <div ref={ref} className={shifting?"float":"static"} style={{width:"100px", height:"100px", top:"50%", left:"50%", "backgroundColor":"gray", position:"absolute", transform:"translate(-50%, -50%)"}}/>
+}
+
+const FocusMan = props=>{
+  const [focus, setFocus] = useState();
+  const ref = useFocus(focus, setFocus);
+  console.log(focus);
+  return (
+    <div ref={ref} style={{width:"100px", height:"100px", "background-color":focus?"black":"gray"}}/>
+  )
 }
 
 const TestInject = (props) => {
