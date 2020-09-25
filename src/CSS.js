@@ -2,12 +2,14 @@
 import jet from "@randajan/jetpack";
 
 class CSSFile {
+    static transitions = ["appear", "appearActive", "appearDone", "enter", "enterActive", "enterDone", "exit", "exitActive", "exitDone"];
+
     constructor(css, file) {
         jet.obj.addProperty(this, { css, file});
     }
 
     get(...classNames) {
-        let result = new Set();
+        const result = new Set();
 
         jet.obj.map(classNames, v=>{
             const cn = jet.str.to(v);
@@ -18,6 +20,12 @@ class CSSFile {
         return jet.obj.addProperty(Array.from(result), {
             toString:function() { return this.joins(" ") }
         });
+    }
+
+    transitions() {
+        const result = {};
+        CSSFile.transitions.map(v=>result[v] = this.get(v).toString());
+        return result;
     }
     
 }
