@@ -1,13 +1,18 @@
 import React, { useRef, useState } from 'react'
 
-import jet, { useForceRender, useEngage, useShift, useDrag, useSwipe, useFocus } from '@randajan/react-jetpack';
+import jet, { useForceRender, useEngage, useShift, useDrag, useSwipe, useFocus, CSSLib, CSSFile } from '@randajan/react-jetpack';
 
+const csslib = new CSSLib();
+const cssfile1 = csslib.open({App:"App10", x:12, d:14})
+const cssfile2 = csslib.open({a:1, App:"App12", c:4}, {b:4, App:"App12", c:2}, cssfile1);
+
+console.log(cssfile1, cssfile2);
 window.jet = jet
 
 const App = (props) => {
   const [eng, prev] = useEngage(_=>new Promise(res=>setTimeout(_=>res("ok"))));
   return (
-    <div className="App">
+    <div className={cssfile2.get("App")}>
       <TestShift/>
       <FocusMan/>
       <TestInject>
