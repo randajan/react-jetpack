@@ -22,7 +22,7 @@ function useForceRender() {
 
 function useEngage(set, cache, ...deps) {
   const toEng = (next, prev, ...a)=>{
-    const eng = jet.to("engage", jet.run(set, ...a));
+    const eng = jet.eng.to(jet.fce.run(set, ...a));
     if (!next || !next.pending) { return [eng, next]; }
     next.cancel();
     return [ eng, prev||next ];
@@ -43,40 +43,21 @@ function useEngage(set, cache, ...deps) {
   return [next, prev, (...a)=>setEng(toEng(next, prev, ...a))];
 }
 
-function useDrag(onMove) {
+function useMove(event, onMove, opt) {
   const [move, setMove] = useState(false);
   const ref = useRef();
 
-  useEffect(_=>jet.event.listenDrag(ref.current, (ev, bound)=>{
+  useEffect(_=>jet.ele.listen[event](ref.current, (ev, bound)=>{
     if (bound.state !== "move") { setMove(bound.state === "start"); }
-    jet.run(onMove, bound);
-  }));
+    jet.fce.run(onMove, bound);
+  }, opt), jet.arr.to(opt));
 
   return [ref, move];
 }
 
-function useShift(onShift, initX, initY, absolute) {
-  const [move, setMove] = useState(false);
-  const ref = useRef();
-    
-  useEffect(_=>jet.event.listenShift(ref.current, (ev, bound)=>{
-    if (bound.state !== "move") { setMove(bound.state === "start"); }
-    jet.run(onShift, bound);
-  }, initX, initY, absolute), [initX, initY, absolute]);
-
-  return [ref, move];
-}
-
-function useSwipe(onSwipe, allowDir, minDist, maxTime) {
-  const ref = useRef();
-    
-  useEffect(
-    _=>jet.event.listenSwipe(ref.current, (ev, bound)=>jet.run(onSwipe, bound), allowDir, minDist, maxTime), 
-    [allowDir, minDist, maxTime]
-  );
-
-  return [ref];
-}
+function useDrift(onDrift, opt) { return useMove("drift", onDrift, opt);}
+function useDrag(onDrag, opt) { return useMove("drag", onDrag, opt);}
+function useSwipe(onSwipe, opt) { return useMove("swipe", onSwipe, opt);}
 
 function useFocus(focus, setFocus, lock) {
   const ref = useRef();
@@ -90,8 +71,8 @@ function useFocus(focus, setFocus, lock) {
         if (!focus !== !now) { setFocus(now); }
     }
 
-    if (focus) { return jet.event.hear(document, "mouseup", handler); }
-    else if (ref.current) { return jet.event.hear(ref.current, "mouseup", handler); }
+    if (focus) { return jet.ele.listen(document, "mouseup", handler); }
+    else if (ref.current) { return jet.ele.listen(ref.current, "mouseup", handler); }
 
 
   }, [focus, lock]);
@@ -102,8 +83,8 @@ function useFocus(focus, setFocus, lock) {
 export {
   useForceRender,
   useEngage,
+  useDrift,
   useDrag,
-  useShift,
   useSwipe,
   useFocus
 };

@@ -6,11 +6,11 @@ class CSSFile {
 
     constructor(lib, ...files) {
         const base = {};
-        jet.obj.addProperty(this, { lib, base});
+        jet.obj.prop.add(this, { lib, base });
 
         files.map(f=>{
-            if (jet.is(CSSFile, f)) { f = f.base; }
-            jet.obj.map(f, (v,k)=>this.add(k, v));
+            if (jet.type.is(CSSFile, f)) { f = f.base; }
+            jet.map.it(f, (v,k)=>this.add(k, v));
         });
     }
 
@@ -21,15 +21,15 @@ class CSSFile {
     get(...classNames) {
         const result = new Set();
 
-        jet.obj.map(classNames, v=>{
+        jet.map.it(classNames, v=>{
             const cn = jet.str.to(v);
-            const cb = jet.obj.get(this.base, cn);
+            const cb = jet.map.dig(this.base, cn);
             result.add(this.lib.get(cn));
             if (cb) { cb.map(v=>result.add(v)); }
         }, true);
 
-        return jet.obj.addProperty(Array.from(result), {
-            toString:function() { return this.joins(" ") }
+        return jet.obj.prop.add(Array.from(result), {
+            toString:function() { return jet.map.melt(this, " "); }
         });
     }
 
@@ -45,9 +45,9 @@ class CSSLib {
 
     constructor(defs) { this.define(defs); }
 
-    define(defs) { this.defs = jet.obj.merge(this.defs, defs); return this; }
+    define(defs) { this.defs = jet.map.merge(this.defs, defs); return this; }
 
-    get(className) { return jet.obj.get(this.defs, className) || className; }
+    get(className) { return jet.map.dig(this.defs, className) || className; }
 
     open(...files) { return new CSSFile(this, ...files);}
 }
