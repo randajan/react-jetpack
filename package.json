@@ -1,6 +1,6 @@
 {
   "name": "@randajan/react-jetpack",
-  "version": "2.0.1-0",
+  "version": "2.0.1",
   "description": "@randajan/jetpack modification for react",
   "license": "MIT",
   "repository": "randajan/react-jetpack",
@@ -26,9 +26,7 @@
     "react": "^16.0.0",
     "@randajan/jetpack": "^5.0.2"
   },
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
     "microbundle-crl": "^0.13.10",
     "babel-eslint": "^10.0.3",
