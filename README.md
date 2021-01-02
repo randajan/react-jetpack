@@ -13,19 +13,19 @@ npm install --save @randajan/react-jetpack
 ## __React - jetpack pseudo-types__
 
 This module includes two pseudo-types.
-The main reason for these pseudo-types is to secure reactElement and reactComponent from being maped with _jet.obj.map_.
+The main reason for these pseudo-types is to secure reactElement and reactComponent from being maped with _jet.map.it_.
 
- * "reactElement"
- * "reactComponent"
+ * "reactElement" as "rele"
+ * "reactComponent" as "rent"
 
 ### Example
 ```jsx
 
-jet.type(<div/>) === "reactElement";
-jet.is("reactElement", <div/>) === true;
+jet.type(<div/>) === "rele";
+jet.rele.is(<div/>) === true;
 
-jet.copy(<div/>, {id:"foo"}) === <div id="foo"/>
-jet.get("reactElement") === <div/>
+jet.rele.copy(<div/>, {id:"foo"}) === <div id="foo"/>
+jet.rele() === <div/>
 
 
 ```
@@ -35,7 +35,7 @@ jet.get("reactElement") === <div/>
 ### __Export__
 name | type | arguments | return | use
 --- | --- | --- | --- | ---
-jet | React Element | props | div container | Provider
+jet.rele | React Element | props | div container | Provider
 CSSLib | class | defs | instance | Provide CSS module, where you can redefine classNames for whole project
 CSSFile | class | CSSLib, file | instance | Provide wrap of require(_file.css_). 
 useForceRender | Hook | - | function | Create function for rerendering. Instance of this function will stay same after rerender
@@ -45,7 +45,7 @@ useDrag | Hook | function | [ref, move] | Will notice any attempt to drag and re
 useShift | Hook | function, number, number, boolean | [ref, move] | Turn the ref into shiftable object. Now user can drag the element around. Provided function can validate moving by editing passed object. Two numbers are initial X and Y coordinates and last argument switch relative (% !default) and absolute (px) positioning.
 useSwipe | Hook | function, array, number, number | [ref] | Listen the swipe event. Arguments: callback on swipe, allowed direction, minimal distance, max time.
 
-#### __jet.react.fetchFlags__
+#### __jet.rele.flags__
 _It will transform the multidimensional object to fill the custom attribute "data-flags". If the iteration proces found true (boolean) it will append the key instead of the value. Any function will be called with provided arguments._
 
 * Arguments
@@ -54,10 +54,10 @@ _It will transform the multidimensional object to fill the custom attribute "dat
 * Return
   * _array with flags_
 * Example
-  * ["foo", "bar", "any"] === jet.react.fetchFlags({nokey:v=>v, bar=>v==="foo", nofunction:"any"}, "foo")
+  * ["foo", "bar", "any"] === jet.rele.flags({nokey:v=>v, bar=>v==="foo", nofunction:"any"}, "foo")
 
 
-#### __jet.react.injectProps__
+#### __jet.rele.inject__
 _It will inject the return of injection to props of every children that met the filter criteria. Filter should be array with react types (or empty for disable filtering)._
 
 * Arguments
@@ -71,13 +71,13 @@ _It will inject the return of injection to props of every children that met the 
 
 ```jsx
 
-jet.react.injectProps(<p id="bar"/>, {id:"foo"}) === <p id="foo"/>
+jet.rele.inject(<p id="bar"/>, {id:"foo"}) === <p id="foo"/>
 
-jet.react.injectProps(<div><p id="bar"/></div>, child=>({id:"foo"}), false) === <div id="foo"><p id="bar"/></div>
+jet.rele.inject(<div><p id="bar"/></div>, child=>({id:"foo"}), false) === <div id="foo"><p id="bar"/></div>
 
-jet.react.injectProps(<div><p id="bar"/></div>, child=>({id:child.type}), true) === <div id="div"><p id="p"/></div>
+jet.rele.inject(<div><p id="bar"/></div>, child=>({id:child.type}), true) === <div id="div"><p id="p"/></div>
 
-jet.react.injectProps(<div><p id="bar"/></div>, child=>({id:"foo"+child.props.id}), true, ["p"]) === <div><p id="foobar"/></div>
+jet.rele.inject(<div><p id="bar"/></div>, child=>({id:"foo"+child.props.id}), true, ["p"]) === <div><p id="foobar"/></div>
 
 ```
 
