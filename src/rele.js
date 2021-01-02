@@ -29,7 +29,7 @@ export default {
             const inject = jet.obj.to(include ? injection : null, r, key, level);
             const children = deep ? jet.rele.inject(inject.children || r.props.children, injection, level+1, filter) : null;
             if (children) { inject.children = children; }
-            return jet.obj.is.full(inject) ? jet.rele.copy(r, inject) : rele;
+            return jet.obj.is.full(inject) ? jet.rele.copy(r, inject) : r;
         });
     },
 
