@@ -24,10 +24,11 @@
   },
   "peerDependencies": {
     "react": "^16.0.0",
-    "@randajan/jetpack": "^4.4.8"
+    "@randajan/jetpack": "^5.0.2"
   },
   "dependencies": {
-    "@randajan/jetpack": "^5.0.1-0"
+    "react": "^16.0.0",
+    "@randajan/jetpack": "^5.0.2"
   },
   "devDependencies": {
     "microbundle-crl": "^0.13.10",
