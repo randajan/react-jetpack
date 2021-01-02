@@ -13,7 +13,7 @@ const App = (props) => {
   const [eng, prev] = useEngage(_=>new Promise(res=>setTimeout(_=>res("ok"), 5000)));
 
   return (
-    <div className={cssfile2.get("App")} data-eng={eng.state}>
+    <div className={cssfile2.get("App")}>
       {jet.rele.copy(<div></div>, {id:1})}
       <TestDrag/>
       <FocusMan/>

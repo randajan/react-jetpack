@@ -1,3 +1,5 @@
+import React from "react";
+
 import jet from "@randajan/jetpack";
 
 export default {
@@ -20,7 +22,7 @@ export default {
     inject(rele, injection, deep, filter) {
         const level = jet.num.tap(deep);
 
-        return jet.arr.to(rele).map((r, key)=>{
+        return React.Children.map(rele, (r, key)=>{
             if (!jet.rele.is(r)) { return r; }
 
             const include = (!filter || filter.includes(r.type));

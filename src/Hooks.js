@@ -29,6 +29,7 @@ function useEngage(set, cache, ...deps) {
   };
 
   const rerender = useForceRender();
+
   const [ [ next, prev ], setEng ] = useState(toEng);
 
   useEffect(_=>{ setEng(toEng(next, prev)); }, deps);
@@ -38,7 +39,9 @@ function useEngage(set, cache, ...deps) {
     if (!pending && cache && cache < (new Date() - end)) { setEng(toEng(next, prev)); }
   });
 
-  useEffect(_=>{ next.finally(rerender); }, [next]);
+  useEffect(_=>{
+    next.finally(rerender);
+  }, [next]);
 
   return [next, prev, (...a)=>setEng(toEng(next, prev, ...a))];
 }

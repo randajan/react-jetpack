@@ -24,9 +24,11 @@
   },
   "peerDependencies": {
     "react": "^16.0.0",
-    "@randajan/jetpack": "^5.0.2"
+    "@randajan/jetpack": "^5.0.6"
   },
-  "dependencies": {},
+  "dependencies": {
+
+  },
   "devDependencies": {
     "microbundle-crl": "^0.13.10",
     "babel-eslint": "^10.0.3",
